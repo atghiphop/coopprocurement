@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Fair + eConverge TruPriceData™</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: hsl(192.44,53.95%,29.8%);
+            --primary-color-hover: hsl(192.44,53.95%,25%);
+            --secondary-color: hsl(86.18,46.61%,46.27%);
+            --secondary-color-light: hsl(86.18,46.61%,56.27%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            height: 80px;
+            width: auto;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 300;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.5em;
+            color: var(--secondary-color);
+            font-weight: 400;
+        }
+
+        /* Train Track Steps Section */
+        .steps-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            text-shadow: none;
+        }
+
+        .train-track-container {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+            margin-bottom: 40px;
+        }
+
+        .train-track {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            min-width: 1200px;
+            padding: 20px 0;
+        }
+
+        .train-track::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 60px;
+            right: 60px;
+            height: 4px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        .step-station {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            background: white;
+            padding: 15px 10px;
+            width: 140px;
+            text-align: center;
+            min-height: 180px;
+            justify-content: flex-start;
+        }
+
+        .step-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 4px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .step-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-icon {
+            font-size: 28px;
+            color: white;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .step-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            line-height: 1.2;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-subtitle {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-style: italic;
+            text-align: center;
+            line-height: 1.3;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Step Details Cards */
+        .steps-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step-detail-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-detail-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-detail-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .step-detail-icon {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .step-detail-number {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .step-detail-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .step-detail-subtitle {
+            font-size: 1em;
+            color: var(--primary-color);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .step-detail-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        /* User Stories Section */
+        .user-stories {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-stories::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .story-column {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-column::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .story-column.member::before {
+            background: var(--secondary-color);
+        }
+
+        .story-column.vendor::before {
+            background: #fd7e14;
+        }
+
+        .story-column.coop::before {
+            background: var(--primary-color);
+        }
+
+        .story-column:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .story-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .member .story-icon { color: var(--secondary-color); }
+        .vendor .story-icon { color: #fd7e14; }
+        .coop .story-icon { color: var(--primary-color); }
+
+        .story-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .story-step {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .story-step:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .member .story-step:hover {
+            border-left-color: var(--secondary-color);
+        }
+
+        .vendor .story-step:hover {
+            border-left-color: #fd7e14;
+        }
+
+        .coop .story-step:hover {
+            border-left-color: var(--primary-color);
+        }
+
+        .story-step-title {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .story-step-content {
+            color: #666;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .train-track {
+                min-width: 1000px;
+            }
+            
+            .steps-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-text {
+                text-align: center;
+            }
+
+            .train-track {
+                min-width: 800px;
+            }
+
+            .step-station {
+                width: 100px;
+            }
+
+            .step-circle {
+                width: 60px;
+                height: 60px;
+            }
+
+            .step-icon {
+                font-size: 20px;
+            }
+        }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-dots">
+        <div class="nav-dot active" data-section="header"></div>
+        <div class="nav-dot" data-section="steps"></div>
+        <div class="nav-dot" data-section="stories"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in" id="header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="https://images.squarespace-cdn.com/content/v1/67608cd79b306d0d155d1909/c8f86dd2-aa25-4eaf-9b5d-1706147c424e/econ-logo-smallE.png?format=1500w" alt="eConverge Logo">
+                </div>
+                <div class="header-text">
+                    <h1>Buy Fair + eConverge</h1>
+                    <div class="subtitle">TruPriceData™ Procurement Solution</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Steps Section -->
+        <div class="steps-section" id="steps">
+            <h2 class="section-title">9-Step Procurement Process</h2>
+            
+            <!-- Train Track Layout -->
+            <div class="train-track-container fade-in">
+                <div class="train-track">
+                    <div class="step-station">
+                        <div class="step-circle" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-icon"><i class="fas fa-search"></i></div>
+                        </div>
+                        <div class="step-label">Project Identification</div>
+                        <div class="step-subtitle">Smart Onboarding</div>
+                    </div>
+
+                    <div class="step-station">
+                        <div class="step-circle" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-icon"><i class="fas fa-calculator"></i></div>
+                        </div>
+                        <div class="step-label">Scope & Estimate</div>
+                        <div class="step-subtitle">TruPriceData™ Builder</div>
+                    </div>
+
+                    <div class="step-station">
+                        <div class="step-circle" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-icon"><i class="fas fa-shield-alt"></i></div>
+                        </div>
+                        <div class="step-label">Compliance Submission</div>
+                        <div class="step-subtitle">Submission Center</div>
+                    </div>
+
+                    <div class="step-station">
+                        <div class="step-circle" data-step="4">
+                            <div class="step-number">4</div>
+                            <div class="step-icon"><i class="fas fa-file-contract"></i></div>
+                        </div>
+                        <div class="step-label">Proposal Delivery</div>
+                        <div class="step-subtitle">PO Toolkit</div>
+                    </div>
+
+                    <div class="step-station">
+                        <div class="step-circle" data-step="5">
+                            <div class="step-number">5</div>
+                            <div class="step-icon"><i class="fas fa-shopping-cart"></i></div>
+                        </div>
+                        <div class="step-label">Purchase Order</div>
+                        <div class="step-subtitle">Confirmation Workflow</div>
+                    </div>
+
+                    <div class="step-station">
+                        <div class="step-circle" data-step="6">
+                            <div class="step-number">6</div>
+                            <div class="step-icon"><i class="fas fa-rocket"></i></div>
+                        </div>
+                        <div class="step-label">Work Begins</div>
+                        <div class="step-subtitle">Execution Launchpad</div>
+                    </div>
+
+                    <div class="step-station">
+                        <div class="step-circle" data-step="7">
+                            <div class="step-number">7</div>
+                            <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+                        </div>
+                        <div class="step-label">Vendor PO Reporting</div>
+                        <div class="step-subtitle">Dual Reporting</div>
+                    </div>
+
+                    <div class="step-station">
+                        <div class="step-circle" data-step="8">
+                            <div class="step-number">8</div>
+                            <div class="step-icon"><i class="fas fa-check-double"></i></div>
+                        </div>
+                        <div class="step-label">PO Verification</div>
+                        <div class="step-subtitle">Compliance Check</div>
+                    </div>
+
+                    <div class="step-station">
+                        <div class="step-circle" data-step="9">
+                            <div class="step-number">9</div>
+                            <div class="step-icon"><i class="fas fa-receipt"></i></div>
+                        </div>
+                        <div class="step-label">Billing & Feedback</div>
+                        <div class="step-subtitle">Insights & Reports</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Step Cards -->
+            <div class="steps-details">
+                <div class="step-detail-card fade-in" data-step="1">
+                    <div class="step-detail-number">1</div>
+                    <div class="step-detail-icon"><i class="fas fa-search"></i></div>
+                    <div class="step-detail-title">Project Identification</div>
+                    <div class="step-detail-subtitle">Smart Onboarding</div>
+                    <div class="step-detail-description">Member identifies the project and quickly confirms Co-op procurement suitability.</div>
+                </div>
+
+                <div class="step-detail-card fade-in" data-step="2">
+                    <div class="step-detail-number">2</div>
+                    <div class="step-detail-icon"><i class="fas fa-calculator"></i></div>
+                    <div class="step-detail-title">Scope & Estimate</div>
+                    <div class="step-detail-subtitle">Scope & Estimate Builder with TruPriceData™</div>
+                    <div class="step-detail-description">Vendor creates a detailed scope and generates an accurate estimate directly within the platform.</div>
+                </div>
+
+                <div class="step-detail-card fade-in" data-step="3">
+                    <div class="step-detail-number">3</div>
+                    <div class="step-detail-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="step-detail-title">Compliance Submission</div>
+                    <div class="step-detail-subtitle">Compliance Submission Center</div>
+                    <div class="step-detail-description">Vendor submits the proposal to Co-op for automated compliance review.</div>
+                </div>
+
+                <div class="step-detail-card fade-in" data-step="4">
+                    <div class="step-detail-number">4</div>
+                    <div class="step-detail-icon"><i class="fas fa-file-contract"></i></div>
+                    <div class="step-detail-title">Proposal Delivery</div>
+                    <div class="step-detail-subtitle">Proposal Delivery + PO Toolkit</div>
+                    <div class="step-detail-description">Vendor provides compliant, ready-to-review proposal documents to the member via a streamlined digital toolkit.</div>
+                </div>
+
+                <div class="step-detail-card fade-in" data-step="5">
+                    <div class="step-detail-number">5</div>
+                    <div class="step-detail-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="step-detail-title">Purchase Order Submission</div>
+                    <div class="step-detail-subtitle">PO Confirmation Workflow</div>
+                    <div class="step-detail-description">Member submits a clear, compliant PO directly to Co-op contracts team for recording and validation.</div>
+                </div>
+
+                <div class="step-detail-card fade-in" data-step="6">
+                    <div class="step-detail-number">6</div>
+                    <div class="step-detail-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="step-detail-title">Work Begins</div>
+                    <div class="step-detail-subtitle">Execution Launchpad</div>
+                    <div class="step-detail-description">Vendor launches project work and tracks all details, progress, and updates via the platform.</div>
+                </div>
+
+                <div class="step-detail-card fade-in" data-step="7">
+                    <div class="step-detail-number">7</div>
+                    <div class="step-detail-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="step-detail-title">Vendor PO Reporting</div>
+                    <div class="step-detail-subtitle">Dual Reporting System</div>
+                    <div class="step-detail-description">Vendor uploads PO directly to the system if it wasn't initially submitted by the member, ensuring full compliance and recordkeeping.</div>
+                </div>
+
+                <div class="step-detail-card fade-in" data-step="8">
+                    <div class="step-detail-number">8</div>
+                    <div class="step-detail-icon"><i class="fas fa-check-double"></i></div>
+                    <div class="step-detail-title">PO & Compliance Verification</div>
+                    <div class="step-detail-subtitle">PO Compliance Finalization</div>
+                    <div class="step-detail-description">Co-op confirms purchase order compliance officially, ensuring transparency, accountability, and reduced risk.</div>
+                </div>
+
+                <div class="step-detail-card fade-in" data-step="9">
+                    <div class="step-detail-number">9</div>
+                    <div class="step-detail-icon"><i class="fas fa-receipt"></i></div>
+                    <div class="step-detail-title">Billing & Feedback</div>
+                    <div class="step-detail-subtitle">Billing Center + Grading & Insights</div>
+                    <div class="step-detail-description">Vendor invoices, pays administrative fees, and all parties access final project reports, performance insights, and member feedback.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Stories Section -->
+        <div class="user-stories" id="stories">
+            <h2 class="section-title" style="color: #2c3e50;">User Stories</h2>
+            <div class="stories-grid">
+                <!-- Member Stories -->
+                <div class="story-column member fade-in">
+                    <div class="story-header">
+                        <div class="story-icon"><i class="fas fa-user"></i></div>
+                        <div class="story-title">Member's Procurement Journey</div>
+                    </div>
+                    
+                    <div class="story-step">
+                        <div class="story-step-title">Step 1: Project Identification</div>
+                        <div class="story-step-content">"I have a project that needs to get done. I log into eConverge, quickly verify if it's suitable for Co-op procurement, and pick an approved vendor right in the platform."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 2: Scope & Estimate</div>
+                        <div class="story-step-content">"The vendor I chose prepares a clear scope of work and creates an accurate estimate right within the system using TruPriceData™."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 3: Compliance Submission</div>
+                        <div class="story-step-content">"The vendor digitally submits the proposal and estimate to the Co-op, ensuring it meets compliance requirements."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 4: Proposal Delivery</div>
+                        <div class="story-step-content">"I receive a notification in eConverge that the proposal has been reviewed and approved by the Co-op. All the documents I need are neatly organized for easy review."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 5: Purchase Order Submission</div>
+                        <div class="story-step-content">"I review the proposal, decide to proceed, and digitally send the Purchase Order through eConverge directly to the Co-op for confirmation and recordkeeping."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 6: Work Begins</div>
+                        <div class="story-step-content">"The vendor starts work on my project. I monitor progress, see updates, timelines, and key milestones clearly on the platform, knowing exactly how things are progressing."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 7: Vendor PO Reporting</div>
+                        <div class="story-step-content">"If for any reason I forgot to submit the PO initially, the vendor ensures it's uploaded to the platform, keeping everything compliant and fully transparent."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 8: PO & Compliance Verification</div>
+                        <div class="story-step-content">"The Co-op verifies everything officially, ensuring my procurement process is safe, transparent, and fully compliant. I get confirmation and peace of mind."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 9: Billing & Feedback</div>
+                        <div class="story-step-content">"I receive my invoices directly from the vendor, pay as usual, and then I provide feedback and ratings through eConverge. I can also review detailed performance insights, making sure the vendor did a great job."</div>
+                    </div>
+                </div>
+
+                <!-- Vendor Stories -->
+                <div class="story-column vendor fade-in">
+                    <div class="story-header">
+                        <div class="story-icon"><i class="fas fa-tools"></i></div>
+                        <div class="story-title">Vendor's Procurement Journey</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 1: Project Request</div>
+                        <div class="story-step-content">"I get notified by a Co-op member through eConverge that they're interested in starting a new project. I accept the request to start working."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 2: Scope & Estimate Preparation</div>
+                        <div class="story-step-content">"Using the Scope & Estimate Builder in eConverge, I quickly put together a detailed scope of work and an accurate estimate with TruPriceData™."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 3: Compliance Submission</div>
+                        <div class="story-step-content">"I submit my estimate and proposal through eConverge's Compliance Center, making sure everything meets the Co-op's standards."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 4: Proposal Delivery</div>
+                        <div class="story-step-content">"Once the Co-op confirms compliance, I digitally deliver the approved proposal documents to the member within the eConverge system."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 5: PO Confirmation</div>
+                        <div class="story-step-content">"The member reviews my proposal and submits their Purchase Order (PO) through the eConverge platform to the Co-op. The Co-op confirms it's officially recorded."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 6: Project Execution</div>
+                        <div class="story-step-content">"With PO confirmation, I begin work immediately. Through the platform, I update project status, document changes, and manage timelines clearly and transparently."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 7: PO Reporting (if needed)</div>
+                        <div class="story-step-content">"If the member didn't initially submit the PO to the Co-op, I upload it into eConverge, ensuring everything is properly documented."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 8: PO & Compliance Verification</div>
+                        <div class="story-step-content">"The Co-op formally confirms the PO and compliance requirements. I receive official confirmation, ensuring transparency and smooth processing."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 9: Billing & Feedback</div>
+                        <div class="story-step-content">"I invoice the member directly, get paid, and then submit my administrative fees easily through eConverge. After the project wraps up, I review performance ratings, feedback, and insights to improve future service."</div>
+                    </div>
+                </div>
+
+                <!-- Co-op Stories -->
+                <div class="story-column coop fade-in">
+                    <div class="story-header">
+                        <div class="story-icon"><i class="fas fa-building"></i></div>
+                        <div class="story-title">Co-op's Procurement Journey</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 1: Member Initiates Project</div>
+                        <div class="story-step-content">"Our member identifies a suitable procurement project and selects an approved vendor within the eConverge platform."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 2: Vendor Prepares Estimate</div>
+                        <div class="story-step-content">"The vendor generates a detailed scope of work and accurate estimates directly in the system using TruPriceData™."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 3: Compliance Review</div>
+                        <div class="story-step-content">"We receive the vendor's submission instantly in eConverge, perform a streamlined compliance check, and approve it quickly."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 4: Member Receives Proposal</div>
+                        <div class="story-step-content">"With compliance confirmed, the vendor delivers a clear, compliant proposal package directly to our member through eConverge."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 5: Purchase Order Confirmation</div>
+                        <div class="story-step-content">"Our member digitally submits their Purchase Order (PO) to us through the eConverge platform, allowing us to immediately confirm and record it."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 6: Project Tracking & Visibility</div>
+                        <div class="story-step-content">"We gain complete visibility into the project's progress—status updates, timelines, and vendor performance—all available directly in the system."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 7: Vendor PO Submission</div>
+                        <div class="story-step-content">"If the PO wasn't initially provided by the member, the vendor uploads it, ensuring our records remain accurate and compliant."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 8: Compliance Finalization</div>
+                        <div class="story-step-content">"We officially confirm PO compliance through eConverge, ensuring transparency and minimizing any risk or liability."</div>
+                    </div>
+
+                    <div class="story-step">
+                        <div class="story-step-title">Step 9: Fee Collection & Insights</div>
+                        <div class="story-step-content">"We easily track vendor invoicing and administrative fees in eConverge. After project completion, we review feedback, member ratings, and analytics to continually enhance our service and support."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling navigation
+        document.querySelectorAll('.nav-dot').forEach(dot => {
+            dot.addEventListener('click', function() {
+                const section = this.getAttribute('data-section');
+                const element = document.getElementById(section);
+                element.scrollIntoView({ behavior: 'smooth' });
+                
+                // Update active dot
+                document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Update active dot on scroll
+        window.addEventListener('scroll', function() {
+            const sections = ['header', 'steps', 'stories'];
+            let current = '';
+            
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 100) {
+                    current = section;
+                }
+            });
+            
+            document.querySelectorAll('.nav-dot').forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('data-section') === current) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+
+        // Step interactions
+        document.querySelectorAll('.step-circle, .step-detail-card').forEach(element => {
+            element.addEventListener('click', function() {
+                const stepNumber = this.getAttribute('data-step');
+                // Scroll to matching detailed card
+                const targetCard = document.querySelector(`.step-detail-card[data-step="${stepNumber}"]`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    // Add emphasis effect
+                    targetCard.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        targetCard.style.transform = '';
+                    }, 300);
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.querySelectorAll('.step-detail-card, .story-column, .train-track-container').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Simulate progress for demonstration
+        setTimeout(() => {
+            // This could be used to update step status dynamically
+            console.log('Presentation dashboard loaded successfully');
+        }, 1000);
+    </script>
+</body>
+</html>
