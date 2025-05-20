@@ -13,7 +13,7 @@
         display: none;
     }
     
-    .header, .steps-section, .pillars-section, .user-stories {
+    .header, .steps-section, .pillars-section, .user-stories, .tailored-section {
         margin-bottom: 20px;
         padding: 15px;
         box-shadow: none;
@@ -127,6 +127,51 @@ body {
     font-size: 1.5em;
     color: var(--secondary-color);
     font-weight: 400;
+}
+
+/* Tailored Procurement Section */
+.tailored-section {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 20px;
+    padding: 20px 80px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.tailored-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.tailored-subtitle {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.tailored-icon {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.tailored-description {
+    color: #666;
+    line-height: 1.7;
+    font-size: 1.1em;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 /* Train Track Steps Section */
@@ -730,6 +775,10 @@ body {
     .story-step {
         min-width: 220px;
         max-width: 220px;
+    }
+    
+    .tailored-section {
+        padding: 30px 20px;
     }
 }
 

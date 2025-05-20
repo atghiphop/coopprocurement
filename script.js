@@ -13,7 +13,7 @@ document.querySelectorAll('.nav-dot').forEach(dot => {
 
 // Update active dot on scroll
 window.addEventListener('scroll', function() {
-    const sections = ['header', 'steps', 'pillars', 'stories'];
+    const sections = ['header', 'tailored', 'steps', 'pillars', 'stories'];
     let current = '';
     
     sections.forEach(section => {
@@ -64,7 +64,7 @@ const observer = new IntersectionObserver(function(entries) {
 }, observerOptions);
 
 // Observe all animatable elements
-document.querySelectorAll('.step-detail-card, .pillar-card, .story-row, .train-track-container, .pillars-container').forEach(el => {
+document.querySelectorAll('.step-detail-card, .pillar-card, .story-row, .train-track-container, .pillars-container, .tailored-section').forEach(el => {
     observer.observe(el);
 });
 
